@@ -1,0 +1,91 @@
+﻿@model CatalogModel
+@{
+	ViewData["Title"] = ViewData["Title"] ?? Model.Title;
+	var isAdmin = false;
+}
+<div>Breadcrumbs</div>
+<hr />
+<div class="container">
+	<div class="row">
+		<div class="col-3">
+			<div>
+				@if (Model.Categories.Count > 0)
+				{
+					<h3>Category</h3>
+					<hr />
+					<ul class="nav flex-column">
+						@foreach (var category in Model.Categories)
+						{
+							<li class="nav-item">@Html.ActionLink(category.Title, "Details", "Catalog", new { id = category.Id }, null)</li>
+						}
+					</ul>
+				}
+			</div>
+			<div>
+				@if (Model.Products.Count > 0)
+				{
+					<h3>Filter by</h3>
+					<hr />
+					<p>filters...</p>
+				}
+			</div>
+		</div>
+		<div class="col-9">
+			<h3>@Model.Title</h3>
+			<hr />
+			@if (Model.Categories.Count > 0)
+			{
+				<div class="container">
+					<div class="card-columns">
+						@foreach (var category in Model.Categories)
+						{
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">@Html.ActionLink(category.Title, "Details", "Catalog", new { id = category.Id }, null)</h5>
+									<p class="card-text">@category.Description</p>
+
+								</div>
+								<div class="card-footer">
+									<ul class="nav flex-column">
+										@if (isAdmin)
+										{
+											<li class="nav-item">@Html.ActionLink("Edit", "Edit", "Catalog", new { id = category.Id }, null)</li>
+											<li class="nav-item">@Html.ActionLink("Delete", "Delete", "Catalog", new { id = category.Id }, null)</li>
+										}
+									</ul>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+				<hr />
+			}
+			@if (Model.Products.Count > 0)
+			{
+				<div class="container">
+					<div class="card-columns">
+						@foreach (var product in Model.Products)
+						{
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">@Html.ActionLink(product.Title, "Details", "Product", new { id = product.Id }, null)</h5>
+									<p class="card-text">@product.Description</p>
+
+								</div>
+								<div class="card-footer">
+									<ul class="nav flex-column">
+										@if (isAdmin)
+										{
+											<li class="nav-item">@Html.ActionLink("Edit", "Edit", "Product", new { id = product.Id }, null)</li>
+											<li class="nav-item">@Html.ActionLink("Delete", "Delete", "Product", new { id = product.Id }, null)</li>
+										}
+									</ul>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

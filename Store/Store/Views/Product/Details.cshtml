@@ -1,0 +1,46 @@
+﻿@model ProductModel
+@{
+	ViewData["Title"] = ViewData["Title"] ?? Model.Title;
+	var isAdmin = false;
+}
+<div>Breadcrumbs</div>
+<hr />
+<div class="container">
+	<div class="row">
+		<div class="col-3">
+			<div>
+				@if (Model.Products.Count > 0)
+				{
+					<h3>@Model.CatalogItem.Title</h3>
+					<hr />
+					<ul class="nav flex-column">
+						@foreach (var product in Model.Products)
+						{
+							<li class="nav-item">@Html.ActionLink(product.Title, "Details", "Product", new { id = product.Id }, null)</li>
+						}
+					</ul>
+				}
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="card m-3" style="max-width: 640px;">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+							 alt="Trendy Pants and Shoes"
+							 class="img-fluid rounded-start" />
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">@Model.Title</h5>
+							<p class="card-text">@Model.ProductDetails.Description</p>
+							<p class="card-text">
+								<small class="text-muted">Last updated 3 mins ago</small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
